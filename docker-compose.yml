@@ -1,0 +1,16 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    links:
+      - "queue:activemq"
+    environment:
+      SPRING_ACTIVEMQ_BROKER-URL: tcp://queue:61616
+  queue:
+    image: rmohr/activemq
+    container_name: queue
+    ports:
+      - "8161:8161"
+      - "61616:61616"
